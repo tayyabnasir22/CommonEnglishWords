@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "common-english-search"
+version = "0.1.0"
+description = "Check whether English words (or their singular/plural form) are common, using wordfreq-derived frequency data."
+readme = "README.md"
+license = "Apache-2.0 AND CC-BY-SA-4.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.9"
+dependencies = ["inflect>=6.0"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+[project.urls]
+Homepage = "https://github.com/tayyabnasir/common-english-search"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+common_english_search = ["data/*.pkl"]
