@@ -1,5 +1,7 @@
-from Singleton import Singleton
 import inflect
+
+from .singleton import Singleton
+
 
 class InflectWrapper(Singleton):
     def __init__(self) -> None:

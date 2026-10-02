@@ -1,5 +1,13 @@
-from InflectWrapper import InflectWrapper
 import pickle
+from importlib import resources
+from .inflect_wrapper import InflectWrapper
+
+def _load_freqs() -> dict[str, float]:
+    '''Load the bundled English frequency dict shipped inside the package.'''
+    data_file = resources.files(__package__).joinpath("data", "english_words.pkl")
+    with data_file.open("rb") as f:
+        return pickle.load(f)
+
 
 class CommonEnglishSearch:
     def __init__(self, common_threshold: float = 1.5):
@@ -7,9 +15,7 @@ class CommonEnglishSearch:
         self._freq_threshold = common_threshold / 10000
         self._engine = InflectWrapper().inflectEngine
         self._inflect_cache: dict[str, str] = {}
-
-        with open("english_words.pkl", "rb") as f:
-            self._freqs = pickle.load(f)
+        self._freqs = _load_freqs()
 
     def GetSingularOrPlural(self, word: str) -> str:
         '''
