@@ -17,7 +17,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/tayyabnasir22/common-english-search"
+Homepage = "https://github.com/tayyabnasir22/CommonEnglishWords"
 
 [tool.setuptools.packages.find]
 where = ["src"]
