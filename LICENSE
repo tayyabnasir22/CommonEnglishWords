@@ -1,0 +1,7 @@
+Code in this package: Apache License 2.0
+https://www.apache.org/licenses/LICENSE-2.0
+
+Data (common_english_search/data/english_words.pkl): derived from the English
+word list in wordfreq by Robyn Speer (https://github.com/rspeer/wordfreq),
+redistributed under Creative Commons Attribution-ShareAlike 4.0.
+https://creativecommons.org/licenses/by-sa/4.0/
