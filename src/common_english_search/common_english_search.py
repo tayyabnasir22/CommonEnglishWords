@@ -49,7 +49,7 @@ class CommonEnglishSearch:
         Converts the given word to singular if plural, otherwise returns it unchanged
         In case of multiple words will convert only the last word
         '''
-        if word is None or word.strip() == '':
+        if word is None or word.strip() == '' or len(word.strip()) < 2:
             return word
 
         word = re.sub(r'\s+', ' ', word)
