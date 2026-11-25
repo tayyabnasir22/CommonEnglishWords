@@ -37,6 +37,8 @@ class CommonEnglishSearch:
                 out = self._engine.plural(word)
             else:
                 out = singular
+            if out.lower() not in self._freqs:
+                out = word
 
         out = out.strip()
         self._inflect_cache[word] = out
