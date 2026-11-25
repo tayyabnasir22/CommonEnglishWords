@@ -62,6 +62,27 @@ class CommonEnglishSearch:
 
         return out.strip()
 
+    def GetPlural(self, word: str) -> str:
+        '''
+        Convert the word to plural if singular else the word itself
+        In case of multiple words will convert only the last word
+        '''
+        if word is None or word.strip() == '' or len(word.strip()) < 2:
+            return word
+
+        word = re.sub(r'\s+', ' ', word)
+
+        out = word
+        if any(char.isalpha() for char in word):
+            singular = self._engine.singular_noun(word)
+            # Treat as already plural only if its singular is a real word
+            if singular is False or singular.split()[-1].lower() not in self._freqs:
+                plural = self._engine.plural(word)
+                if plural.split()[-1].lower() in self._freqs:
+                    out = plural
+
+        return out.strip()
+
     def _is_common_normalized(self, word: str) -> bool:
         if self._freqs.get(word, 0.0) > self._freq_threshold:
             return True
