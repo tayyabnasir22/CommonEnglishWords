@@ -1,13 +1,13 @@
 import pickle
 from importlib import resources
 from .inflect_wrapper import InflectWrapper
+import re
 
 def _load_freqs() -> dict[str, float]:
     '''Load the bundled English frequency dict shipped inside the package.'''
     data_file = resources.files(__package__).joinpath("data", "english_words.pkl")
     with data_file.open("rb") as f:
         return pickle.load(f)
-
 
 class CommonEnglishSearch:
     def __init__(self, common_threshold: float = 1.5):
@@ -43,6 +43,24 @@ class CommonEnglishSearch:
         out = out.strip()
         self._inflect_cache[word] = out
         return out
+
+    def GetSingular(self, word: str) -> str:
+        '''
+        Converts the given word to singular if plural, otherwise returns it unchanged
+        In case of multiple words will convert only the last word
+        '''
+        if word is None or word.strip() == '':
+            return word
+
+        word = re.sub(r'\s+', ' ', word)
+
+        out = word
+        if any(char.isalpha() for char in word):
+            singular = self._engine.singular_noun(word)
+            if singular is not False and singular.split()[-1].lower() in self._freqs:
+                out = singular
+
+        return out.strip()
 
     def _is_common_normalized(self, word: str) -> bool:
         if self._freqs.get(word, 0.0) > self._freq_threshold:
